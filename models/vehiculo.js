@@ -22,10 +22,10 @@ const VehiculoSchema = new Schema({
         type: String,
         required: true
     }
-},{ timestamps: {createdAt: 'fecha_registro'} });
+}, { 'collection': 'vehiculos', 'timestamps': true });
 
 mongoose.Types.ObjectId.prototype.valueOf = () => {
     return this.toString();
 };
 
-module.exports = mongoose.model('vehiculo', VehiculoSchema, 'vehiculos');
+module.exports = mongoose.model('vehiculo', VehiculoSchema);
