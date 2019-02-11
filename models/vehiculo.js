@@ -18,11 +18,27 @@ const VehiculoSchema = new Schema({
         type: Number,
         required: true
     },
+    combustible:[{
+        cantidad_litros: {
+            type: Number
+        },
+        cantidad_costo: {
+            type: String
+        },
+        fecha_carga: {
+            type: Date
+        },
+        odometro: {
+            type: String
+        }
+    }],
     empresa: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref:'empresas',
         required: true
     }
-}, { 'collection': 'vehiculos', 'timestamps': true });
+}, { collection: 'vehiculos', timestamps: true });
+
 
 mongoose.Types.ObjectId.prototype.valueOf = () => {
     return this.toString();

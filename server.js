@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+mongoose.set('useFindAndModify', false);
 
 const mongoUri = 'mongodb+srv://admin:admin123@cluster0-ul4mm.mongodb.net/estructurasluevanos?retryWrites=true';
 mongoose.connect(mongoUri, { useNewUrlParser: true });
@@ -13,7 +14,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 require('./routes')(app);
-require('./models/vehiculo');
 
 // port
 app.listen(3001);

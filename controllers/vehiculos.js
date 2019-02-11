@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 const Vehiculo = require('../models/vehiculo');
 
+
 function findAllVehicles(req, res) {
-    Vehiculo.find({}).then((results) => {
+    Vehiculo.find({}).populate('empresa').then((results) => {
         return res.send(results);
     }).catch((err) => {throw err});
 };
 
 function findVehicleById(req, res) {
     let id = req.params.id;
-    Vehiculo.findById({_id:id}).then((result => {
+    Vehiculo.findById(id).populate('empresa').then((result) => {
         return res.send(result);
-    })).catch((err) => {throw err});
+    }).catch((err) => {throw err});
 };
 
 function addVehicle(req, res) {
@@ -23,9 +24,35 @@ function addVehicle(req, res) {
 function updateVehicle(req, res) {
     let id = req.params.id;
     let updates = req.body;
-    Vehiculo.findOneAndUpdate(id,{$set:updates},{new:true}).then((vehiculo) => {
+    Vehiculo.findByIdAndUpdate(id,{$set:updates},{new:true}).then((vehiculo) => {
         return res.send(vehiculo);
     }).catch((err) => {throw err});
+}
+
+function addFuel(req, res) {
+    let id = req.params.id;
+    let updates = req.body;
+
+    Vehiculo.findById(id).then((result) => {
+        addFuel2(result);
+    }).catch((err) => { throw err });
+
+    async function addFuel2(obj) {
+        if (obj.combustible.length == 10) {
+            await removeOldest();
+            addFuel3();
+        } else {addFuel3()}
+    }
+    
+    function removeOldest() {
+        Vehiculo.findByIdAndUpdate(id, { $pop: { combustible: -1 } }).catch((err) => { throw err });
+    }
+
+    function addFuel3() {
+        Vehiculo.findByIdAndUpdate(id, { $push: { combustible: updates } }, { new: true }).then((vehiculo) => {
+            return res.send(vehiculo);
+        }).catch((err) => { throw err });
+    }
 }
 
 function deleteVehicle(req, res){
@@ -40,5 +67,6 @@ module.exports = {
     findVehicleById,
     addVehicle,
     updateVehicle,
+    addFuel,
     deleteVehicle
 }
