@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Vehiculo = require('../models/vehiculo');
+const Vehiculo = require('../schemas/vehiculo');
 
 
 function findAllVehicles(req, res) {

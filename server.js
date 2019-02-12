@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 mongoose.set('useFindAndModify', false);
 
-const mongoUri = 'mongodb+srv://admin:admin123@cluster0-ul4mm.mongodb.net/estructurasluevanos?retryWrites=true';
+// const mongoUri = 'mongodb+srv://admin:admin123@cluster0-ul4mm.mongodb.net/estructurasluevanos?retryWrites=true';
+const mongoUri = 'mongodb://localhost:27017/estructurasluevanos';
+
 mongoose.connect(mongoUri, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', function() {throw new Error('unable to connect to database at ' + mongoUri)});

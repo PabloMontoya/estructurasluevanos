@@ -23,13 +23,13 @@ const VehiculoSchema = new Schema({
             type: Number
         },
         cantidad_costo: {
-            type: String
+            type: Number
         },
         fecha_carga: {
             type: Date
         },
         odometro: {
-            type: String
+            type: Number
         }
     }],
     empresa: {
@@ -44,4 +44,4 @@ mongoose.Types.ObjectId.prototype.valueOf = () => {
     return this.toString();
 };
 
-module.exports = mongoose.model('vehiculo', VehiculoSchema);
+module.exports = mongoose.model('vehiculos', VehiculoSchema);

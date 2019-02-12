@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Company = require('../models/empresa');
+const Company = require('../schemas/empresa');
 
 
 function findAllCompanies(req, res) {
