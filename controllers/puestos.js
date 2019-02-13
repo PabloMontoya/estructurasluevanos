@@ -6,14 +6,14 @@ function findAllPositions(req, res) {
     Positions.find({}).then((results) => {
         return res.send(results);
     }).catch((err) => {throw err});
-};
+}
 
 function findPositionById(req, res) {
     let id = req.params.id;
     Positions.findById(id).then((result) => {
         return res.send(result);
     }).catch((err) => {throw err});
-};
+}
 
 function addPosition(req, res) {
     Positions.create(req.body).then((position) => {
@@ -29,12 +29,12 @@ function updatePosition(req, res) {
     }).catch((err) => {throw err});
 }
 
-function deletePositions(req, res){
+function deletePositions(req, res) {
     let id = req.params.id;
     Positions.deleteOne(id).then(() => {
         return res.send("Puesto Eliminado");
     }).catch((err) => {throw err});
-};
+}
 
 module.exports = {
     findAllPositions,

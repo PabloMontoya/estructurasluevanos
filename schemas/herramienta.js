@@ -10,20 +10,18 @@ const ToolSchema = new Schema({
         type: String,
         required: true
     },
+    mantenimiento: {
+        descripcion_mantenimiento:{
+            type: String
+        },
+        fecha_mantenimiento:{
+            type:Date
+        }
+    },
     empresa: {
         type: Schema.Types.ObjectId,
         ref:'empresas',
         required: true
-    },
-    mantenimiento: {
-        descripcion_mantenimiento:{
-            type: String,
-            required: true
-        },
-        fecha_mantenimiento:{
-            type:Date,
-            required: true
-        }
     },
     usuario: {
         type: Schema.Types.ObjectId,

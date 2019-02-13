@@ -6,14 +6,14 @@ function findAllVehicles(req, res) {
     Vehiculo.find({}).populate('empresa').then((results) => {
         return res.send(results);
     }).catch((err) => {throw err});
-};
+}
 
 function findVehicleById(req, res) {
     let id = req.params.id;
     Vehiculo.findById(id).populate('empresa').then((result) => {
         return res.send(result);
     }).catch((err) => {throw err});
-};
+}
 
 function addVehicle(req, res) {
     Vehiculo.create(req.body).then((vehiculo) => {
@@ -55,12 +55,24 @@ function addFuel(req, res) {
     }
 }
 
-function deleteVehicle(req, res){
+function deleteVehicle(req, res) {
     let id = req.params.id;
     Vehiculo.deleteOne({_id:id}).then(() => {
         return res.send("Vehiculo Eliminado");
     }).catch((err) => {throw err});
-};
+}
+
+function reporteCombustible(req, res) {
+    Vehiculo.find({}).then((vehiculos) => {
+        vehiculos.forEach((vehiculo)=>{
+            if (vehiculo.combustible.length > 1) {
+                vehiculo.combustible.forEach((combustible) => {
+                    let 
+                });
+            }
+        });
+    }).catch((err) => {throw err});
+}
 
 module.exports = {
     findAllVehicles,
@@ -68,5 +80,6 @@ module.exports = {
     addVehicle,
     updateVehicle,
     addFuel,
-    deleteVehicle
+    deleteVehicle,
+    reporteCombustible
 }
