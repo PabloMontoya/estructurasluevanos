@@ -63,50 +63,55 @@ function deleteVehicle(req, res) {
 }
 
 function reporteCombustible(req, res) {
+    let combustible = null;
     let reporte = [];
     let grid = null;
-    let combustible = null;
-    let auto = null
-    let info = null
-    let infototal = null
-    let km = null
-    let dif = null
+    let auto = null;
+    let info = null;
+    let infototal = null;
+    let kmanterior = 0;
+    let dif = 0;
     
     Vehiculo.find({}).then((vehiculos) => {
         vehiculos.forEach((vehiculo)=>{
-            if (vehiculo.combustible.length > 0) {
-                
-                combustible = vehiculo.combustible;
-                auto = {marca:'', modelo:'', año:'', descripcion:'', grid:'', total:''};
-                grid = [];
-                info = {litros:'', costo:'', odometro:'', fecha:'', km_recorridos:0};
-                infototal = {litros:0, costo:0, km:0, dias:0};
-                km = 0;
-                dif = 0;
 
+            // array de combustibles
+            combustibles = vehiculo.combustible;
+
+            // entra si tiene por lo menos un registro de combustible
+            if (combustibles.length > 0) {
+
+                // valores dafault para cada iteracion
+                auto = { marca: '', modelo: '', año: '', descripcion: '', grid: '', total: '' };
+                grid = [];
+                info = { litros: '', costo: '', odometro: '', fecha: '', km_recorridos: 0 };
+                infototal = { litros: 0, costo: 0, km: 0, dias: 0 };
+                kmanterior = 0;
+                dif = 0;
+                
+                // informacion del auto en el row principal (auto) del reporte
                 auto.marca = vehiculo.marca;
                 auto.modelo = vehiculo.modelo;
                 auto.año = vehiculo.año;
                 auto.descripcion = vehiculo.descripcion;
 
-                for (i = 1; i < combustible.length; i++) {
-                    km, dif = 0;
-                    
-                    info.litros = combustible[i-1].cantidad_litros;
-                    info.costo = combustible[i-1].cantidad_costo;
-                    info.odometro = combustible[i-1].odometro;
-                    info.fecha = combustible[i-1].fecha_carga;
+                combustibles.forEach((combustible) => {
 
-                    dif = combustible[i].odometro - combustible[i-1].odometro;
+                    info.litros = combustible.cantidad_litros;
+                    info.costo = combustible.cantidad_costo;
+                    info.odometro = combustible.odometro;
+                    info.fecha = combustible.fecha_carga;
+
+                    dif = combustible.odometro - kmanterior;
+                    if (kmanterior === 0) { dif = 0 }
                     info.km_recorridos = dif;
-                    console.log(dif);
-
+                    kmanterior = combustible.odometro;
                     grid.push(info);
 
-                    infototal.litros += combustible[i].cantidad_litros;
-                    infototal.costo += combustible[i].cantidad_costo;
+                    infototal.costo += combustible.cantidad_costo;
+                    infototal.litros += combustible.cantidad_litros;
                     infototal.km += dif;
-                }
+                });
 
                 auto.grid = grid;
                 auto.total = infototal;
