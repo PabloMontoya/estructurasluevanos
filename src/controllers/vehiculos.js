@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Vehiculo = require('../schemas/vehiculo');
+const DateDiff = require('date-diff');
 
 
 function findAllVehicles(req, res) {
@@ -63,7 +64,7 @@ function deleteVehicle(req, res) {
 }
 
 function reporteCombustible(req, res) {
-    let combustible = null;
+    let combustibles = null;
     let reporte = [];
     let grid = null;
     let auto = null;
@@ -71,6 +72,7 @@ function reporteCombustible(req, res) {
     let infototal = null;
     let kmanterior = 0;
     let dif = 0;
+    let fechaanterior = null;
     
     Vehiculo.find({}).then((vehiculos) => {
         vehiculos.forEach((vehiculo)=>{
@@ -84,10 +86,11 @@ function reporteCombustible(req, res) {
                 // valores dafault para cada iteracion
                 auto = { marca: '', modelo: '', año: '', descripcion: '', grid: '', total: '' };
                 grid = [];
-                info = { litros: '', costo: '', odometro: '', fecha: '', km_recorridos: 0 };
-                infototal = { litros: 0, costo: 0, km: 0, dias: 0 };
+                info = { litros: '', costo: '', odometro: '', fecha: '', km_recorridos: 0, dias:0 };
+                infototal = { litros: 0, costo: 0, km: 0, dias:0 };
                 kmanterior = 0;
                 dif = 0;
+                fechaanterior = combustibles[0].fecha_carga;
                 
                 // informacion del auto en el row principal (auto) del reporte
                 auto.marca = vehiculo.marca;
@@ -96,6 +99,7 @@ function reporteCombustible(req, res) {
                 auto.descripcion = vehiculo.descripcion;
 
                 combustibles.forEach((combustible) => {
+                    info = { litros: '', costo: '', odometro: '', fecha: '', km_recorridos: 0 };
 
                     info.litros = combustible.cantidad_litros;
                     info.costo = combustible.cantidad_costo;
@@ -106,11 +110,16 @@ function reporteCombustible(req, res) {
                     if (kmanterior === 0) { dif = 0 }
                     info.km_recorridos = dif;
                     kmanterior = combustible.odometro;
+
+                    info.dias = Date.diff(combustible.fecha_carga, fechaanterior).days();
+                    fechaanterior = combustible.fecha_carga;
+
                     grid.push(info);
 
                     infototal.costo += combustible.cantidad_costo;
                     infototal.litros += combustible.cantidad_litros;
                     infototal.km += dif;
+                    infototal.dias += info.dias;
                 });
 
                 auto.grid = grid;

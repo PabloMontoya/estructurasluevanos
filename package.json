@@ -2,15 +2,16 @@
   "name": "api-estructurasluevanos",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon src/index.js"
   },
   "author": "Pablo Montoya",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "date-diff": "^0.2.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.10",
     "nodemon": "^1.18.9",
