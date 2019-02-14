@@ -31,7 +31,7 @@ function updatePosition(req, res) {
 
 function deletePositions(req, res) {
     let id = req.params.id;
-    Positions.deleteOne(id).then(() => {
+    Positions.deleteOne({_id:id}).then(() => {
         return res.send("Puesto Eliminado");
     }).catch((err) => {throw err});
 }

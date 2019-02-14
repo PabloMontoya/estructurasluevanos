@@ -31,7 +31,8 @@ function updateTool(req, res) {
 
 function deleteTool(req, res) {
     let id = req.params.id;
-    Tool.deleteOne(id).then(() => {
+    // console.log(id);
+    Tool.deleteOne({_id:id}).then(() => {
         return res.send("Herramienta Eliminada");
     }).catch((err) => {throw err});
 }

@@ -31,7 +31,7 @@ function updateEmployee(req, res) {
 
 function deleteEmployee(req, res) {
     let id = req.params.id;
-    Employee.deleteOne(id).then(() => {
+    Employee.deleteOne({_id:id}).then(() => {
         return res.send("Empleado Eliminado");
     }).catch((err) => {throw err});
 }
