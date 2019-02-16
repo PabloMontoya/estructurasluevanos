@@ -29,7 +29,7 @@ module.exports = function(app) {
     app.get('/vehiculos', vehiculos.findAllVehicles);
     app.get('/vehiculos/:id', vehiculos.findVehicleById);
     app.post('/vehiculos/agregar', vehiculos.addVehicle);
-    app.post('/vehiculos/reportecombustible', vehiculos.reporteCombustible);
+    app.get('/vehiculos/reportecombustible', vehiculos.reporteCombustible);
     app.put('/vehiculos/actualizar/:id', vehiculos.updateVehicle);
     app.put('/vehiculos/agregarcombustible/:id', vehiculos.addFuel);
     app.delete('/vehiculos/eliminar/:id', vehiculos.deleteVehicle);
