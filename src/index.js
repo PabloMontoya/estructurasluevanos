@@ -3,8 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 mongoose.set('useFindAndModify', false);
-var cors = require('cors');
-
 
 const mongoUri = 'mongodb+srv://admin:admin123@cluster0-ul4mm.mongodb.net/estructurasluevanos?retryWrites=true';
 // const mongoUri = 'mongodb://localhost:27017/estructurasluevanos';
@@ -24,10 +22,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(cors());
-
 require('./routes')(app);
 
 // port
-app.listen(process.env.PORT);
-console.log(`Listening on port ${process.env.PORT}...`);
+var port = process.env.PORT;
+var port2 = 3001;
+
+app.listen(port2);
+console.log(`Listening on port ${port2}...`);
