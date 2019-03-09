@@ -29,4 +29,4 @@ var port = process.env.PORT;
 var port2 = 3001;
 
 app.listen(port2);
-console.log(`Listening on port ${port2}...`);
+console.log(`Listening on port ${port}...`);
