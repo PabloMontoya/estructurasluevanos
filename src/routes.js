@@ -10,6 +10,13 @@ module.exports = function(app) {
     app.post('/empresas/agregar', empresas.addCompany);
     app.put('/empresas/actualizar/:id', empresas.updateCompany);
     app.delete('/empresas/eliminar/:id', empresas.deleteCompany);
+    
+    const proyectos = require('./controllers/proyectos');
+    app.get('/proyectos', proyectos.findAllProyects);
+    app.get('/proyectos/:id', proyectos.findProyectById);
+    app.post('/proyectos/agregar', proyectos.addProyect);
+    app.put('/proyectos/actualizar/:id', proyectos.updateProyect);
+    app.delete('/proyectos/eliminar/:id', proyectos.deleteProyect);
 
     const puestos = require('./controllers/puestos');
     app.get('/puestos', puestos.findAllPositions);
