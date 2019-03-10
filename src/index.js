@@ -28,5 +28,5 @@ require('./routes')(app);
 var port = process.env.PORT;
 var port2 = 3001;
 
-app.listen(port2);
+app.listen(port);
 console.log(`Listening on port ${port}...`);
