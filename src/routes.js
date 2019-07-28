@@ -11,6 +11,15 @@ module.exports = function(app) {
     app.put('/empresas/actualizar/:id', empresas.updateCompany);
     app.delete('/empresas/eliminar/:id', empresas.deleteCompany);
     
+    const notas = require('./controllers/notas');
+    app.get('/notas', notas.findAllNotes);
+    app.get('/notas/:id', notas.findNoteById);
+    app.post('/notas/agregar', notas.addNote);
+    app.put('/notas/actualizar/:id', notas.updateNote);
+    app.post('/notas/empleadoslibresporfecha', notas.returnFreeEmployeesByDate);
+    app.delete('/notas/eliminar/:id', notas.deleteNote);
+    app.delete('/notas/eliminar/', notas.deleteAllNotes);
+    
     const proyectos = require('./controllers/proyectos');
     app.get('/proyectos', proyectos.findAllProyects);
     app.get('/proyectos/:id', proyectos.findProyectById);
@@ -47,4 +56,5 @@ module.exports = function(app) {
     app.post('/herramientas/agregar', herramientas.addTool);
     app.put('/herramientas/actualizar/:id', herramientas.updateTool);
     app.delete('/herramientas/eliminar/:id', herramientas.deleteTool);
+
 }

@@ -10,7 +10,7 @@ function findAllCompanies(req, res) {
 
 function findCompanyById(req, res) {
     let id = req.params.id;
-    Company.findById(id).then((result) => {
+    Company.findOne({_id:id}).then((result) => {
         return res.send(result);
     }).catch((err) => { throw err });
 }
