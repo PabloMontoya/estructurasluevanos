@@ -2,16 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
-    contrato: {
+    numOrden: {
         type: String,
-        required: true
-    },
-    descripcion: {
-        type: String,
-        required: true
-    },
-    fecha: {
-        type: Date,
         required: true
     },
     empresa: {
@@ -19,13 +11,56 @@ const NoteSchema = new Schema({
         ref:'empresas',
         required: true
     },
-    empleado: {
-        type: Schema.Types.ObjectId,
-        ref:'empleados'
-    },
     proyecto: {
         type: Schema.Types.ObjectId,
-        ref:'proyectos'
+        ref:'proyectos',
+        required: true
+    },
+    empleado: {
+        type: Schema.Types.ObjectId,
+        ref:'empleados',
+        required: true
+    },
+    tipoTrabajo:{
+        type: Schema.Types.ObjectId,
+        ref:'tiposTrabajo',
+        required: true
+    },
+    cantidad:{
+        type:mongoose.Types.Decimal128,
+        required: true
+    },
+    descripcion: {
+        type: String,
+        required: true
+    },
+    direccion:{
+        calle:{
+            type:String,
+            required: true
+        },
+        colonia:{
+            type:String,
+            required: true
+        },
+        numero:{
+            type:String,
+            required: true
+        },
+        distrito:{
+            type:String,
+            required: true
+        },
+    },
+    fecha: {
+        fechaInicio: {
+            type: Date,
+            required: true,
+            default: Date.now,
+        },
+        fechaTermino: {
+            type: Date,
+        },
     }
 }, { collection: 'notas', timestamps: true });
 

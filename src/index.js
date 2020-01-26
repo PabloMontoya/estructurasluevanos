@@ -7,8 +7,8 @@ mongoose.set('useFindAndModify', false);
 const mongoUri = 'mongodb+srv://admin:admin123@cluster0-ul4mm.mongodb.net/estructurasluevanos?retryWrites=true';
 // const mongoUri = 'mongodb://localhost:27017/estructurasluevanos';
 
-mongoose.connect(mongoUri, { useNewUrlParser: true });
-var db = mongoose.connection;
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+let db = mongoose.connection;
 db.on('error', function() {throw new Error('unable to connect to database at ' + mongoUri)});
 db.once('open', function() {console.log('we are connected!')});
 
@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 require('./routes')(app);
 
 // port
-var port = process.env.PORT || 3001;
+let port = process.env.PORT || 3001;
 
 app.listen(port);
 console.log(`Listening on port ${port}...`);

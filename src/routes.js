@@ -20,6 +20,14 @@ module.exports = function(app) {
     app.delete('/notas/eliminar/:id', notas.deleteNote);
     app.delete('/notas/eliminar/', notas.deleteAllNotes);
     
+    const tiposTrabajos = require('./controllers/tiposTrabajo');
+    app.get('/tipostrabajos', tiposTrabajos.findAllWorkTypes);
+    app.get('/tipostrabajos/:id', tiposTrabajos.findWorkTypeById);
+    app.post('/tipostrabajos/agregar', tiposTrabajos.addWorkType);
+    app.put('/tipostrabajos/actualizar/:id', tiposTrabajos.updateWorkType);
+    app.delete('/tipostrabajos/eliminar/:id', tiposTrabajos.deleteWorkType);
+    app.delete('/tipostrabajos/eliminar/', tiposTrabajos.deleteAllWorkType);
+    
     const proyectos = require('./controllers/proyectos');
     app.get('/proyectos', proyectos.findAllProyects);
     app.get('/proyectos/:id', proyectos.findProyectById);
