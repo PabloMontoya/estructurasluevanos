@@ -5,14 +5,20 @@ const Employee = require('../schemas/empleado');
 function findAllNotes(req, res) {
     Note.find({}).populate('empresa')
                  .populate({path:'empleado', populate:[{path:'puesto'},{path:'empresa'}]})
-                 .populate('proyecto').then((results) => {
+                 .populate('proyecto')
+                 .populate('tipoTrabajo')
+                 .then((results) => {
         return res.send(results);
     }).catch((err) => { throw err });
 }
 
 function findNoteById(req, res) {
     let id = req.params.id;
-    Note.findOne({_id:id}).then((result) => {
+    Note.findOne({_id:id}).populate('empresa')
+                          .populate({path:'empleado', populate:[{path:'puesto'},{path:'empresa'}]})
+                          .populate('proyecto')
+                          .populate('tipoTrabajo')
+                          .then((result) => {
         return res.send(result);
     }).catch((err) => { throw err });
 }
