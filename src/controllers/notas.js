@@ -44,7 +44,7 @@ async function returnFreeEmployeesByDate(req, res) {
         return resp.map(({_id}) => _id.toString());
     }).catch((err) => {throw err});
     
-    const busyEmployees = await Note.find({fecha:fecha}).then((resp) => {
+    const busyEmployees = await Note.find({'fecha.fechaInicio':fecha}).then((resp) => {
         return resp.map(({empleado}) => empleado._id.toString());
     }).catch((err) => {throw err});
 
