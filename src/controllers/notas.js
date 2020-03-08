@@ -40,18 +40,17 @@ function updateNote(req, res) {
 async function returnFreeEmployeesByDate(req, res) {
     let { fecha } = req.body;
 
-    const employees = await Employee.find({}).then((resp) => {
-        return resp.map(({_id}) => _id.toString());
-    }).catch((err) => {throw err});
+    const employees = await Employee.find({})
+        .catch((err) => {throw err});
     
-    const busyEmployees = await Note.find({$and:[
+    const busyEmployeesIds = await Note.find({$and:[
         {'fecha.fechaInicio':{$lte:fecha}},
         {'fecha.fechaTermino':{$gte:fecha}}
     ]}).then((resp) => {
         return resp.map(({empleado}) => empleado._id.toString());
     }).catch((err) => {throw err});
 
-    return res.send(employees.filter((i) => busyEmployees.indexOf(i) < 0));
+    return res.send(employees.filter((i) => busyEmployeesIds.indexOf(i._id.toString()) < 0));
 }
 
 function deleteNote(req, res) {
