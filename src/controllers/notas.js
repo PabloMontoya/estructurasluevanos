@@ -38,14 +38,14 @@ function updateNote(req, res) {
 }
 
 async function returnFreeEmployeesByDate(req, res) {
-    let { fecha } = req.body;
+    const { fechaInicio, fechaTermino } = req.body;
 
     const employees = await Employee.find({})
         .catch((err) => {throw err});
     
     const busyEmployeesIds = await Note.find({$and:[
-        {'fecha.fechaInicio':{$lte:fecha}},
-        {'fecha.fechaTermino':{$gte:fecha}}
+        {'fecha.fechaInicio':{$lte:fechaTermino}},
+        {'fecha.fechaTermino':{$gte:fechaInicio}}
     ]}).then((resp) => {
         return resp.map(({empleado}) => empleado._id.toString());
     }).catch((err) => {throw err});
