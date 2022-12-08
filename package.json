@@ -10,9 +10,9 @@
   "author": "Pablo Montoya",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "date-diff": "^0.2.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "mongoose": "^5.4.10",
     "nodemon": "^1.18.9"
   }
